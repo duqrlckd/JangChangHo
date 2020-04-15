@@ -1,0 +1,76 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+enum FsmMain {
+	SELECT,SCORE,RESET //상태변환 3개
+};
+
+enum SCOREMAIN {
+	point1 = 1, point2 = 2, point3 = 3 // 선택시 올라갈 점수
+};
+
+struct Player {
+	string PlayerName;
+	int PlayerScore; //플레이어 이름과 점수	
+};
+struct Score {
+	int ScoreList;
+
+	//점수 리셋을 위한 선언
+};
+
+
+
+int main() {
+	FsmMain currentState = SELECT;
+	Score selectscore;
+	Player play;
+	string yesno;
+	play.PlayerName = "player";
+	play.PlayerScore = 0;
+	//플레이어 설정
+	switch (currentState) {
+	case SELECT: //선택창을 위한 케이스  플레이어 정보들과 입력받기
+		cout << "--------플레이어 정보--------" << endl;
+		cout << "플레이어 이름 : " << play.PlayerName << '\n' << "플레이어 점수 : " << play.PlayerScore << endl;
+		cout << "점수 선택창" << endl;
+		cout << "1~3의 번호를 적어주세요" << endl;
+		cout << "얻을 점수 번호를 입력" << endl;
+		int SelcetScore;
+		cin >> SelcetScore;
+
+		switch (SelcetScore) { //점수 입력시 나올 텍스트
+		case point1:
+			cout << "1점 상승" << endl;
+			play.PlayerScore + 1;
+			break;
+		case point2:
+			cout << "2점 상승" << endl;
+			play.PlayerScore + 2;
+			break;
+		case point3:
+			cout << "3점 상승" << endl;
+			play.PlayerScore + 3;
+			break;
+		default:
+			cout << "1~3번중 선택해야됨" << endl;
+			currentState = SELECT; //오류로 처음화면으로
+			break;
+		}
+		
+	case SCORE: //점수를 확인시켜주고 맞는지 아닌지 확인 요청함
+		cout << "현재 당신의 점수는" << play.PlayerScore << "점 입니다. 맞으면 Y 아니면 N";
+		cin >> yesno;
+		if (yesno == "N") return 0;
+		else if (yesno == "Y") return 1;
+		else cout << "Y나 N로 적어주세요" << endl;
+		
+	case RESET: //점수를 올려 상태를 바꿔주고 처음으로 돌아가 확인시켜줌
+			
+
+		break;
+		}
+
+	}
